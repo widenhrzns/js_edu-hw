@@ -1,4 +1,4 @@
-const userLanguage = prompt();
+const userLanguage = prompt("Введите язык:").toLowerCase();
 
 switch (userLanguage) {
   case "en":
@@ -10,4 +10,6 @@ switch (userLanguage) {
   case "de":
     console.log("Guten tag!");
     break;
+  default:
+    console.log("Language is not supposed!");
 }
