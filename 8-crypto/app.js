@@ -1,31 +1,5 @@
-const letters = [
-  "a",
-  "b",
-  "c",
-  "d",
-  "e",
-  "f",
-  "g",
-  "h",
-  "i",
-  "j",
-  "k",
-  "l",
-  "m",
-  "n",
-  "o",
-  "p",
-  "q",
-  "r",
-  "s",
-  "t",
-  "u",
-  "v",
-  "w",
-  "x",
-  "y",
-  "z",
-];
+const letters =
+  "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890!№;%:?*~(),./|=-_+@";
 
 function wordSplitter(word) {
   return word.split("");
@@ -60,7 +34,7 @@ function keyWord(password, key) {
 function idChecker(word) {
   const id = [];
   for (let element of word) {
-    id.push(letters.indexOf(element));
+    id.push(letters.split("").indexOf(element));
   }
   return id;
 }
@@ -73,10 +47,10 @@ function crypto(password, key) {
     );
   }
   for (let index in cryptoResult) {
-    cryptoResult[index] = cryptoResult[index] % letters.length;
+    cryptoResult[index] = cryptoResult[index] % letters.split("").length;
   }
   for (let index in cryptoResult) {
-    cryptoResult[index] = letters[cryptoResult[index]];
+    cryptoResult[index] = letters.split("")[cryptoResult[index]];
   }
   return cryptoResult.join("");
 }
@@ -90,12 +64,12 @@ function decoder(cypher, key) {
   }
   for (let index in passwordResult) {
     if (passwordResult[index] < 0) {
-      passwordResult[index] += letters.length;
+      passwordResult[index] += letters.split("").length;
     }
-    passwordResult[index] = passwordResult[index] % letters.length;
+    passwordResult[index] = passwordResult[index] % letters.split("").length;
   }
   for (let index in passwordResult) {
-    passwordResult[index] = letters[passwordResult[index]];
+    passwordResult[index] = letters.split("")[passwordResult[index]];
   }
   return passwordResult.join("");
 }
@@ -105,16 +79,13 @@ function check(password, cypher, key) {
 }
 
 console.log(
-  crypto(
-    prompt("Введите пароль:").toLowerCase(),
-    prompt("Введите ключевое слово:").toLowerCase()
-  )
+  crypto(prompt("Введите пароль:"), prompt("Введите ключевое слово:"))
 );
 
 console.log(
   check(
-    prompt("Введите пароль:").toLowerCase(),
-    prompt("Введите зашифрованный пароль:").toLowerCase(),
-    prompt("Введите ключ:").toLowerCase()
+    prompt("Введите пароль:"),
+    prompt("Введите зашифрованный пароль:"),
+    prompt("Введите ключ:")
   )
 );
