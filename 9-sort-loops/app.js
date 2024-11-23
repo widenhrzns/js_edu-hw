@@ -1,33 +1,30 @@
-const arr = [1, 40, -5, 10, 0];
+const array = [1, 40, -5, 10, 0];
 const way = "decrease";
 
 function sort(numbers, way) {
+  const arr = [...numbers];
   switch (true) {
     case way === "increase":
-      for (let index in numbers) {
-        for (let i = 0; i < numbers.length - 1; i++) {
-          if (numbers[i] > numbers[i + 1]) {
-            let temp = numbers[i];
-            numbers[i] = numbers[i + 1];
-            numbers[i + 1] = temp;
+      for (let index in arr) {
+        for (let i = 0; i < arr.length - 1; i++) {
+          if (arr[i] > arr[i + 1]) {
+            [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
           }
         }
       }
-      return numbers;
+      return arr;
     case way === "decrease":
-      for (let index in numbers) {
-        for (let i = 0; i < numbers.length - 1; i++) {
-          if (numbers[i] < numbers[i + 1]) {
-            let temp = numbers[i];
-            numbers[i] = numbers[i + 1];
-            numbers[i + 1] = temp;
+      for (let index in arr) {
+        for (let i = 0; i < arr.length - 1; i++) {
+          if (arr[i] < arr[i + 1]) {
+            [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
           }
         }
       }
-      return numbers;
+      return arr;
     default:
       return `Сортировка ${way} не предусмотрена`;
   }
 }
 
-console.log(sort(arr, way));
+console.log(sort(array, way));
