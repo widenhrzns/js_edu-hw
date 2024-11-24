@@ -6,23 +6,37 @@ const dates = [
   "00/13/202x",
 ];
 
-function dateFilter(arr) {
+function dateFilter(arr, fn) {
   const res = arr
-    .map((arrEl) => {
-      const split = arrEl.includes("-") ? arrEl.split("-") : arrEl.split("/");
-      if (split.length == 3) {
-        switch (true) {
-          case Number(split[2]) == NaN || split[2] <= 0 || split[2] > 2024:
-          case Number(split[1]) == NaN || split[1] <= 0 || split[1] > 13:
-          case Number(split[0]) == NaN || split[0] <= 0 || split[0] > 31:
-            split.pop();
-        }
-      }
-      return split;
-    })
-    .filter((arrEl) => arrEl.length == 3)
-    .map((arrEl) => arrEl.join("-"));
-  return res;
+    .map((arrEl) => (arrEl.includes("-") ? arrEl.split("-") : arrEl.split("/")))
+    .filter((arrEl) => fn(arrEl));
+  return res.map((arrEl) => arrEl.join("-"));
 }
 
-console.log(dateFilter(dates));
+function dateChecker(arr) {
+  const newArr = arr.filter((arrEl) => arrEl > 0);
+  if (newArr.length == 3) {
+    const [day, month, year] = arr;
+    const daysInMonth = [
+      31,
+      year % 4 == 0 || (year % 100 == 0 && year % 400 == 0) ? 29 : 28,
+      31,
+      30,
+      31,
+      30,
+      31,
+      31,
+      30,
+      31,
+      30,
+      31,
+    ];
+    const days = day > 0 && day <= daysInMonth[month - 1];
+    const months = month > 0 && month <= 12;
+    const years = year > 0;
+    return days && months && years;
+  }
+  return false;
+}
+
+console.log(dateFilter(dates, dateChecker));
