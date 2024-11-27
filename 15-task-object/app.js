@@ -5,7 +5,7 @@ let lastId = 1;
 const ToDoList = {
   tasks: [],
   AddTask: function (title, priority = -1) {
-    const newTask = { title: title, priority: priority, id: lastId };
+    const newTask = { title, priority, id: lastId };
     const isExist = this.tasks.some((task) => task.title == newTask.title);
     if (isExist) {
       console.log(`Задача: '${title}' - уже существует.`);
