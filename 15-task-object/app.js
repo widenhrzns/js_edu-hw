@@ -2,9 +2,9 @@
 
 let lastId = 1;
 
-const ToDoList = {
+const toDoList = {
   tasks: [],
-  AddTask: function (title, priority = -1) {
+  addTask: function (title, priority = -1) {
     const newTask = { title, priority, id: lastId };
     const isExist = this.tasks.some((task) => task.title == newTask.title);
     if (isExist) {
@@ -15,15 +15,16 @@ const ToDoList = {
       console.log(`Задача: '${title}' - добавлена!`);
     }
   },
-  DeleteTaskById: function (id) {
-    if (this.tasks.some((task) => id == task.id)) {
-      this.tasks = this.tasks.filter((task) => id != task.id);
-      console.log(`Задача с id: ${id} - удалена!`);
-    } else {
+  deleteTaskById: function (id) {
+    const isExists = this.tasks.some((task) => id == task.id);
+    if (!isExists) {
       console.log(`Задачи с id: ${id} - не существует.`);
+      return this;
     }
+    this.tasks = this.tasks.filter((task) => id != task.id);
+    console.log(`Задача с id: ${id} - удалена!`);
   },
-  AmendTask: function (id, amend) {
+  amendTask: function (id, amend) {
     if (this.tasks.some((task) => id == task.id)) {
       const amendTask = this.tasks.find((task) => task.id == id);
       switch (true) {
@@ -42,7 +43,7 @@ const ToDoList = {
       console.log(`Задачи с id: ${id} - не существует.`);
     }
   },
-  SortByPriority: function () {
+  sortByPriority: function () {
     this.tasks.sort((task1, task2) => task1.priority - task2.priority);
     console.log(`Задачи отсортированы по приоритету!`);
   },
@@ -51,27 +52,27 @@ const ToDoList = {
 /* Вывод */
 
 console.log("Добавление задач".padStart(50, "-"));
-ToDoList.AddTask("test1", 1);
-ToDoList.AddTask("test2", 4);
-ToDoList.AddTask("test3", 7);
-ToDoList.AddTask("test4", 3);
-ToDoList.AddTask("test4", 2);
-ToDoList.AddTask("test6");
-ToDoList.AddTask("test7", 9);
-ToDoList.AddTask("test8", 2);
-console.log(ToDoList.tasks);
+toDoList.addTask("test1", 1);
+toDoList.addTask("test2", 4);
+toDoList.addTask("test3", 7);
+toDoList.addTask("test4", 3);
+toDoList.addTask("test4", 2);
+toDoList.addTask("test6");
+toDoList.addTask("test7", 9);
+toDoList.addTask("test8", 2);
+console.log(toDoList.tasks);
 
 console.log("Удаление задач по id".padStart(50, "-"));
-ToDoList.DeleteTaskById(6);
-ToDoList.DeleteTaskById(13);
-ToDoList.DeleteTaskById(1);
-console.log(ToDoList.tasks);
+toDoList.deleteTaskById(6);
+toDoList.deleteTaskById(13);
+toDoList.deleteTaskById(1);
+console.log(toDoList.tasks);
 
 console.log("Обновить имя или приоритет по id".padStart(50, "-"));
-ToDoList.AmendTask(3, 5);
-ToDoList.AmendTask(15, "test");
-ToDoList.AmendTask(2, "Изменение задачи");
+toDoList.amendTask(3, 5);
+toDoList.amendTask(15, "test");
+toDoList.amendTask(2, "Изменение задачи");
 
 console.log("Отсортировать задачи по приоритету".padStart(50, "-"));
-ToDoList.SortByPriority();
-console.log(ToDoList.tasks);
+toDoList.sortByPriority();
+console.log(toDoList.tasks);
